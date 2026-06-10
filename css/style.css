@@ -1,0 +1,17 @@
+#board{
+
+    width:550px;
+    height:550px;
+
+    border:2px solid #222;
+
+}
+
+#clues{
+
+    min-height:550px;
+
+    border:1px solid #ddd;
+    background:white;
+
+}

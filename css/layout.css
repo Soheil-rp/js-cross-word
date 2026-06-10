@@ -1,0 +1,53 @@
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+    font-family:sans-serif;
+    background:#f5f5f5;
+
+}
+
+.container{
+
+    max-width:1400px;
+    margin:auto;
+    padding:30px;
+
+    display:grid;
+    grid-template-columns:550px 1fr;
+    gap:30px;
+
+}
+
+.board-section{
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+}
+
+.sidebar{
+
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+
+}
+
+.tabs{
+
+    display:flex;
+    gap:10px;
+
+}
+
+.tabs button{
+
+    flex:1;
+    height:50px;
+
+}
