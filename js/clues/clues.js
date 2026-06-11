@@ -2,77 +2,45 @@
 import {
     closeAll,
     findClueByCell,
-    openClueElement
+    openClueElement,
+    renderList
 } from "../utils/index.js";
-
-// ــــــــــ Creat Drop Down Items _____
-function createItem(item) {
-
-    // _____Wrapper____
-    const wrapper = document.createElement("div");
-
-    wrapper.classList.add("dropdown");
-
-    wrapper.dataset.id = item.number;
-
-    //_____Dropdown___
-    const header = document.createElement("div");
-
-    header.classList.add("dropdown-header");
-
-    header.textContent = `${item.number}. ${item.clue}`;
-
-    //_____Dropdown Content___ 
-    const content = document.createElement("div");
-
-    content.classList.add("dropdown-content");
-
-    content.textContent = item.answer;
-
-    content.style.display = "none";
-
-    header.addEventListener("click", () => {
-        closeAll();
-        content.style.display = "block";
-    });
-
-    wrapper.append(header, content);
-
-    return wrapper;
-}
 
 export function renderClues(clues) {
     const cluesElement = document.getElementById("clues");
 
     let currentType = "across";
 
-    // ــــــــــ Open Clues Item When Click On Cell _____
-    function openClueByCell(index) {
-        const list = currentType === "across" ?
-            clues.across :
-            clues.down;
+    // ــــــــــ Get Clues List By Type ـــــ 
+    function getList(type) {
+        return type === "across" ? clues.across : clues.down;
+    }
 
-        const clue = findClueByCell(list, index);
+    // __________ Close All Dropdowns And Open Clicked One _____
+    function onHeaderClick(content) {
+        closeAll();
+        content.style.display = "block";
+    }
+
+    // __________ Render Clues List By Type _____
+    function render(type) {
+        currentType = type;
+        renderList(cluesElement, getList(type), onHeaderClick);
+    }
+
+    // __________ Open Clue Dropdown By Cell _____
+    function openClueByCell(index) {
+        const clue = findClueByCell(getList(currentType), index);
 
         if (!clue) return;
         closeAll();
         openClueElement(clue.number);
     }
 
-    function render(type) {
-        currentType = type;
-
-        cluesElement.innerHTML = "";
-
-        const list = type === "across" ? clues.across : clues.down;
-
-        list.forEach(item => cluesElement.appendChild(createItem(item)));
-    }
-
     render("across");
 
     document.getElementById("acrossBtn").onclick = () => render("across");
-
+    
     document.getElementById("downBtn").onclick = () => render("down");
 
     return { openClueByCell };

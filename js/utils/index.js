@@ -8,7 +8,7 @@ function setupBoard(width) {
     boardElement.style.gridTemplateColumns = `repeat(${width}, 50px)`;
 
     boardElement.style.gridTemplateRows = `repeat(${width}, 50px)`;
-    
+
     return boardElement;
 }
 
@@ -61,7 +61,54 @@ function findClueByCell(clues, index) {
 
 function openClueElement(number) {
     const element = document.querySelector(`.dropdown[data-id="${number}"]`);
+
     if (element) element.querySelector(".dropdown-content").style.display = "block";
+}
+
+function createHeader(item) {
+    const header = document.createElement("div");
+
+    header.classList.add("dropdown-header");
+
+    header.textContent = `${item.number}. ${item.clue}`;
+
+    return header;
+}
+
+function createContent(item) {
+    const content = document.createElement("div");
+
+    content.classList.add("dropdown-content");
+
+    content.textContent = item.answer;
+
+    content.style.display = "none";
+
+    return content;
+}
+
+function createItem(item, onHeaderClick) {
+    const wrapper = document.createElement("div");
+
+    wrapper.classList.add("dropdown");
+
+    wrapper.dataset.id = item.number;
+
+    const header = createHeader(item);
+
+    const content = createContent(item);
+
+    header.addEventListener("click", () => onHeaderClick(content));
+
+    wrapper.append(header, content);
+
+    return wrapper;
+}
+
+function renderList(cluesElement, list, onHeaderClick) {
+    cluesElement.innerHTML = "";
+    
+    list.forEach(item => cluesElement.appendChild(createItem(item, onHeaderClick)));
 }
 
 export {
@@ -69,5 +116,9 @@ export {
     createCell,
     closeAll,
     findClueByCell,
-    openClueElement
+    openClueElement,
+    createHeader,
+    createContent,
+    createItem,
+    renderList
 }
