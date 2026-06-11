@@ -46,7 +46,7 @@ export function renderClues(clues) {
 
     let currentType = "across";
 
-    // ــــــــــ Open clues Item When Click On Cell _____
+    // ــــــــــ Open Clues Item When Click On Cell _____
     function openClueByCell(index) {
         const list = currentType === "across" ?
             clues.across :

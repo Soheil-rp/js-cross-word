@@ -14,7 +14,7 @@ function setupBoard(width) {
 
 function createCell(cell, index, openClueByCell) {
     const div = document.createElement("div");
-    
+
     div.classList.add("cell");
 
     if (cell === null) {
@@ -48,6 +48,7 @@ function createCell(cell, index, openClueByCell) {
 
     return div;
 }
+
 function closeAll() {
     document
         .querySelectorAll(".dropdown-content")
