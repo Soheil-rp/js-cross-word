@@ -1,17 +1,17 @@
 // Components
-import { renderBoard } from "./board/board.js";
-import { renderClues } from "./clues/clues.js";
+import { RenderBoard } from "./board/board.js";
+import { RenderClues } from "./clues/clues.js";
 
 // Services
 import { getData } from "./services/services.js";
 
-async function init() {
+async function Init() {
     const data = await getData();
 
-    renderBoard(
+    RenderBoard(
         data.data.board,
-        renderClues(data.data.clues).openClueByCell
+        RenderClues(data.data.clues).openClueByCell
     );
 }
 
-init();
+Init();

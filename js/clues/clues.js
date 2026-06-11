@@ -6,10 +6,21 @@ import {
     renderList
 } from "../utils/index.js";
 
-export function renderClues(clues) {
+export function RenderClues(clues) {
     const cluesElement = document.getElementById("clues");
 
     let currentType = "across";
+
+    // ـــــــــــ Change Active Buttons _____
+    function setActiveButton(type) {
+        if (type === "across") {
+            document.getElementById("acrossBtn").classList.add("active");
+            document.getElementById("downBtn").classList.remove("active");
+        } else {
+            document.getElementById("downBtn").classList.add("active");
+            document.getElementById("acrossBtn").classList.remove("active");
+        }
+    }
 
     // ــــــــــ Get Clues List By Type ـــــ 
     function getList(type) {
@@ -25,7 +36,10 @@ export function renderClues(clues) {
     // __________ Render Clues List By Type _____
     function render(type) {
         currentType = type;
+
         renderList(cluesElement, getList(type), onHeaderClick);
+
+        setActiveButton(type);
     }
 
     // __________ Open Clue Dropdown By Cell _____
@@ -40,7 +54,7 @@ export function renderClues(clues) {
     render("across");
 
     document.getElementById("acrossBtn").onclick = () => render("across");
-    
+
     document.getElementById("downBtn").onclick = () => render("down");
 
     return { openClueByCell };
